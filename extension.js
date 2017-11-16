@@ -14,13 +14,14 @@ function apiTypeToItemType(t) {
   }
 }
 
-function apiToItem(api, tfSeg) {
-  return {
-    'label': api.name,
-    'insertText': api.name.substr(tfSeg.length),
-    'kind': apiTypeToItemType(api.type),
-    'documentation': api.doc
-  }
+function apiToItem(api, tfSeg, pos) {
+  var item = new vscode.CompletionItem(api.name, apiTypeToItemType(api.type))
+  item.insertText = api.name;
+  item.documentation = api.doc;
+  item.additionalTextEdits = [
+    vscode.TextEdit.delete(new vscode.Range(pos.translate(0, -tfSeg.length), pos))
+  ];
+  return item;
 }
 
 function provideCompletionItems(document, position) {
@@ -29,7 +30,7 @@ function provideCompletionItems(document, position) {
   var currentCode = currentLine.text.substr(0, position.character);
 
   // split by '.'
-  var currentCodeSegs = currentCode.split('.');
+  var currentCodeSegs = currentCode.split(':');
 
   // find 'tf'
   var tfSeg = null;
@@ -42,7 +43,8 @@ function provideCompletionItems(document, position) {
 
   // not find api
   var matchedApis = apis.filter(api => api.name.startsWith(tfSeg));
-  return matchedApis.map(api => apiToItem(api, tfSeg));
+  var items = matchedApis.map(api => apiToItem(api, tfSeg, position));
+  return items;
 }
 
 function resolveCompletionItem(item) {
@@ -55,7 +57,7 @@ var tfCompletionProvider = {
 }
 
 function activate(context) {
-  context.subscriptions.push(vscode.languages.registerCompletionItemProvider('python', tfCompletionProvider, '.'));
+  context.subscriptions.push(vscode.languages.registerCompletionItemProvider('python', tfCompletionProvider, '.', ':'));
   console.log('tfcomplete registered')
 }
 
