@@ -2,7 +2,7 @@
   "name": "tfcomplete",
   "displayName": "tfcomplete",
   "description": "speed up tensorflow auto complete",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "publisher": "afpro",
   "engines": {
     "vscode": "^1.18.0"
@@ -32,5 +32,8 @@
     "eslint": "^4.6.1",
     "@types/node": "^7.0.43",
     "@types/mocha": "^2.2.42"
+  },
+  "dependencies": {
+    "vsce": "^1.33.2"
   }
 }
