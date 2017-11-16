@@ -20,6 +20,6 @@ First release, with tensorflow 1.4 api support (include TensorflowLite api)
 ### For more information
 
 * [Code](https://github.com/afpro/tfcomplete)
-* [Email](mailto:admin@afpro.net)
+* email: admin@afpro.net
 
 **Enjoy!**
