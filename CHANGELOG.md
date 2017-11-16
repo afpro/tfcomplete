@@ -1,7 +1,5 @@
 # Change Log
-All notable changes to the "tfcomplete" extension will be documented in this file.
-
-Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
+speed up tensorflow autocomplete by 'tf.xxx'
 
 ## [Unreleased]
 - Initial release
